@@ -31,7 +31,17 @@ MinGW, any terminal
 
 ### Install
 
-``` g++ tamagotchi.cpp -o tamagotchi ```
+grab the 
+[tamagochi](https://github.com/farizqyy/tamagotchi/blob/main/tamagotchi.cpp)
+file
+
+cd into the file
+
+run
+
+```sh
+g++ tamagotchi.cpp -o tamagotchi
+```
 
 ### Usage
 
