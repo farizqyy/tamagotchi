@@ -91,7 +91,6 @@ struct Tamagotchi {
 // 1. STRUCT — random encounter event
 // ─────────────────────────────────────────────
 struct EncounterEvent {
-    std::string emoji;       // event icon
     std::string name;        // short name
     std::string description; // narrative shown to user
     int hungerDelta;         // hunger change  (+= more hungry)
@@ -244,30 +243,30 @@ namespace TamagotchiEngine {
     // Table of all possible encounters
     const EncounterEvent ENCOUNTER_TABLE[] = {
         // ── Bad events ──
-        { "🤧", "FLU",           "Caught the flu! Runny nose all day...",
+        { "FLU",           "Caught the flu! Runny nose all day...",
           +10,  -15,  -10,  -20 },
-        { "🤢", "FOOD POISONING","Ate something weird, stomach ache!",
+        { "FOOD POISONING","Ate something weird, stomach ache!",
           +20,  -20,   -5,  -25 },
-        { "🌧", "CAUGHT IN RAIN","Got drenched without an umbrella!",
+        { "CAUGHT IN RAIN","Got drenched without an umbrella!",
           +5,   -10,  -15,  -15 },
-        { "😨", "SCARED",        "Encountered something terrifying!",
+        { "SCARED",        "Encountered something terrifying!",
            0,   -25,  -20,   -5 },
-        { "🦟", "MOSQUITO BITE", "Got bitten by mosquitoes while sleeping...",
+        { "MOSQUITO BITE", "Got bitten by mosquitoes while sleeping...",
           +5,   -10,   -5,  -10 },
-        { "💤", "INSOMNIA",      "Couldn't sleep well last night.",
+        { "INSOMNIA",      "Couldn't sleep well last night.",
           +10,   -5,  -25,  -10 },
-        { "🥵", "HEATSTROKE",    "Scorching weather, feeling dehydrated!",
+        { "HEATSTROKE",    "Scorching weather, feeling dehydrated!",
           +15,  -10,  -20,  -15 },
         // ── Good events ──
-        { "🌈", "BEAUTIFUL DAY", "Sunny weather, feeling great!",
+        { "BEAUTIFUL DAY", "Sunny weather, feeling great!",
           -5,   +20,  +10,   +5 },
-        { "🎁", "SURPRISE GIFT", "Found an unexpected gift on the way!",
+        { "SURPRISE GIFT", "Found an unexpected gift on the way!",
            0,   +25,  +10,  +10 },
-        { "🍎", "FOUND FRUIT",   "Found some fresh and delicious fruit!",
+        { "FOUND FRUIT",   "Found some fresh and delicious fruit!",
           -15,  +10,  +10,   +5 },
-        { "💆", "MASSAGE",       "Got a relaxing massage from a friend.",
+        { "MASSAGE",       "Got a relaxing massage from a friend.",
            0,   +15,  +20,  +10 },
-        { "🎵", "LOVELY MUSIC",  "Heard some soul-soothing music.",
+        { "LOVELY MUSIC",  "Heard some soul-soothing music.",
            0,   +20,   +5,   +5 },
     };
 
@@ -297,11 +296,11 @@ namespace TamagotchiEngine {
         const EncounterEvent& ev =
             ENCOUNTER_TABLE[std::rand() % ENCOUNTER_COUNT];
 
-        std::cout << "\n  ╔══════════════════════════════════════╗\n";
-        std::cout << "  ║  " << ev.emoji << "  RANDOM ENCOUNTER!               ║\n";
-        std::cout << "  ╠═════════════════════════════════════════╣\n";
-        std::cout << "  ║  " << std::left << std::setw(36) << ev.description << "  ║\n";
-        std::cout << "  ╠══════════════════════════════════════════╣\n";
+        std::cout << "\n  ╔════════════════════════════════════════╗\n";
+        std::cout << "  ║             RANDOM ENCOUNTER!          ║\n";
+        std::cout << "  ╠════════════════════════════════════════╣\n";
+        std::cout << "  ║  " << std::left << std::setw(36) << ev.description << " ║\n";
+        std::cout << "  ╠════════════════════════════════════════╣\n";
 
         // Print only stats that change
         auto printDelta = [](const std::string& label, int delta) {
@@ -315,7 +314,7 @@ namespace TamagotchiEngine {
         printDelta("Happiness",  ev.happinessDelta);
         printDelta("Energy",     ev.energyDelta);
         printDelta("Health",     ev.healthDelta);
-        std::cout << "  ╚══════════════════════════════════════╝\n";
+        std::cout << "  ╚════════════════════════════════════════╝\n";
 
         // 5. CALLBACK — pass lambda as modifier
         applyEncounter(t, ev, [](Tamagotchi& pet, const EncounterEvent& e) {
@@ -350,7 +349,7 @@ namespace TamagotchiEngine {
     // Overload 1: display full Tamagotchi status
     void display(const Tamagotchi& t) {
         std::cout << "\n╔═════════════════════════════════════════╗\n";
-        std::cout << "║  🐣  " << std::left << std::setw(30) << t.name << "     ║\n";
+        std::cout << "║      " << std::left << std::setw(30) << t.name << "     ║\n";
         std::cout << "╠═════════════════════════════════════════╣\n";
         std::cout << "║  Age      : " << std::setw(25) << (std::to_string(t.age) + " days") << "   ║\n";
         std::cout << "║  Status   : " << std::setw(25) << (t.alive ? "Alive ✓" : "Dead ✗") << "     ║\n";
@@ -593,9 +592,9 @@ int main() {
         std::getline(std::cin, petName);
         if (petName.empty()) petName = "Tama";
         pet = TamagotchiEngine::createTamagotchi(petName);
-        std::cout << "\nWelcome, " << pet->name << "! 🐣\n";
+        std::cout << "\nWelcome, " << pet->name << "! \n";
     } else {
-        std::cout << "\nWelcome back, " << pet->name << "! 🐣\n";
+        std::cout << "\nWelcome back, " << pet->name << "! \n";
     }
 
     TamagotchiEngine::display(*pet);
@@ -609,19 +608,19 @@ int main() {
         switch (choice) {
             case 1:
                 TamagotchiEngine::applyAction(*pet, TamagotchiEngine::feedAction,  "FEED");
-                std::cout << pet->name << " eats happily! 🍖\n";
+                std::cout << pet->name << " eats happily! \n";
                 break;
             case 2:
                 TamagotchiEngine::applyAction(*pet, TamagotchiEngine::playAction,  "PLAY");
-                std::cout << pet->name << " plays joyfully! ⚽\n";
+                std::cout << pet->name << " plays joyfully! \n";
                 break;
             case 3:
                 TamagotchiEngine::applyAction(*pet, TamagotchiEngine::sleepAction, "SLEEP");
-                std::cout << pet->name << " sleeps soundly... 💤\n";
+                std::cout << pet->name << " sleeps soundly... \n";
                 break;
             case 4:
                 TamagotchiEngine::applyAction(*pet, TamagotchiEngine::healAction,  "HEAL");
-                std::cout << pet->name << " takes medicine 💊\n";
+                std::cout << pet->name << " takes medicine \n";
                 break;
             case 5:
                 // Overload 1 — full object
@@ -658,7 +657,7 @@ int main() {
         }
 
         if (!Utils::isAlive(*pet)) {
-            std::cout << "\n💀 Oh no! " << pet->name << " has passed away...\n";
+            std::cout << "\n Oh no! " << pet->name << " has passed away...\n";
             std::cout << "They survived for " << pet->age << " days.\n";
             TamagotchiEngine::showLogs(*pet, 10);
         }
