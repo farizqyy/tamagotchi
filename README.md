@@ -1,8 +1,10 @@
-# TINY README Template
+# Tamagotchi
 
 tamagochi app or something
 
-Flowchart:
+[Pseudocode](https://github.com/farizqyy/tamagotchi/blob/main/Pseudocode.txt)
+
+[Flowchart:](https://github.com/farizqyy/tamagotchi/blob/main/Flowchart_Tamagotchi.png)
 
 <div align="center">
   <kbd>
@@ -43,7 +45,9 @@ run
 g++ tamagotchi.cpp -o tamagotchi
 ```
 
-### Usage
+note that some terminal might not be supported
+
+### Purpose
 
 Tamagotchi is a usefull aplication to add boredoom
 
@@ -55,6 +59,6 @@ do it yourself
 
 - [x] ~~Make the program~~
 - [x] ~~Make the flowchart~~
-- [ ] Make pseudocode
+- [x] ~~Make pseudocode~~
 - [ ] Make a report
 - [ ] implement sum more stuff
